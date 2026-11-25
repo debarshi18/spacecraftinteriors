@@ -1,0 +1,16 @@
+# Source photos (Unsplash License — free for commercial use, no attribution required).
+# Format: local-name  unsplash-photo-id
+# These are ILLUSTRATIVE stock images, not SpaceCraft Interiors projects. Replace with real work when available.
+hero-office-workstations-wood-shelving     1706074793638-da28b90ea8ae
+service-open-plan-office                   1631193816258-28b44b21e78b
+service-retail-boutique-wood-slats         1777628530456-bb93d3a03faf
+service-cafe-industrial-seating            1538333581680-29dd4752ddf2
+service-reception-lobby-wood-panelling     1758448500688-3ababa93fd67
+project-glass-meeting-room                 1706074740295-d7a79c079562
+project-loft-office-open-plan              1497366811353-6870744d04b2
+project-bright-retail-display              1771033834141-023d630b3965
+project-retail-display-pendant-lights      1764795850238-7a024db5e3ee
+project-cafe-lounge-seating                1770739538932-433941c1267e
+project-restaurant-wood-slat-booths        1565650839149-2c48a094196c
+project-lobby-reception-marble             1758193783649-13371d7fb8dd
+project-office-lounge-glass-partitions     1774953037913-af0cf688491a

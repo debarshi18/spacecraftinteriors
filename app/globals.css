@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/*
+ * SpaceCraft Interiors design tokens.
+ * Every colour in the UI comes from here — use the Tailwind utilities (bg-teal, text-orange-deep, …)
+ * or var(--color-*) in SVG. Contrast pairings are verified by scripts/check-contrast.mjs.
+ */
+@theme static {
+  /* Brand */
+  --color-teal: #0f4c43; /* primary: hero, footer, dark panels */
+  --color-teal-dark: #0a3a33; /* footer bottom bar, pressed states */
+  --color-teal-muted: #d7e4e1; /* secondary text on teal */
+  --color-orange: #ff6a00; /* brand orange: icons, highlights, illustration — never behind white text */
+  --color-orange-deep: #c44600; /* button fills + orange links (4.97:1 with white) */
+  --color-orange-deeper: #a93c00; /* button hover/pressed */
+  --color-yellow: #ffc857; /* accents, badges, highlighted heading words */
+
+  /* Neutrals */
+  --color-cream: #fff9f1; /* page background */
+  --color-beige: #f2e8d9; /* alternating sections, CTA band */
+  --color-line: #e5e7eb; /* borders, dividers */
+  --color-ink: #1f2937; /* primary text */
+  --color-ink-muted: #6b7280; /* secondary text on cream/white */
+  --color-ink-muted-strong: #565d6a; /* secondary text on beige */
+
+  /* Typography (variables injected by next/font in app/layout.tsx) */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-caveat), "Comic Sans MS", cursive;
+
+  /* Shape */
+  --radius-card: 1rem;
+  --radius-panel: 1.75rem;
+
+  --shadow-card: 0 1px 2px rgb(31 41 55 / 0.06), 0 8px 24px -12px rgb(31 41 55 / 0.18);
+  --shadow-card-hover: 0 2px 4px rgb(31 41 55 / 0.06), 0 18px 40px -16px rgb(31 41 55 / 0.28);
+  --shadow-cta: 0 10px 24px -10px rgb(196 70 0 / 0.55);
+
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* keep anchored sections clear of the sticky header */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+
+  ::selection {
+    background: var(--color-yellow);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  /* Short yellow bar under section headings, as in the reference */
+  .heading-bar::after {
+    content: "";
+    display: block;
+    width: 2.5rem;
+    height: 0.3rem;
+    margin-top: 0.6rem;
+    border-radius: 999px;
+    background: var(--color-yellow);
+  }
+  .heading-bar-center::after {
+    margin-inline: auto;
+  }
+}
+
+/*
+ * Scroll reveal (components/ui/Reveal.tsx). Driven by a CSS scroll timeline, not JavaScript,
+ * so content is never hidden while scripts load: anything already in view at page load is
+ * fully visible at first paint. Browsers without scroll timelines simply show the content.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      animation: reveal linear both;
+      animation-timeline: view();
+      /* --reveal-step staggers siblings by starting each one slightly later in the entry range */
+      animation-range: entry calc(var(--reveal-step, 0) * 6%) entry calc(70% + var(--reveal-step, 0) * 6%);
+    }
+  }
+}
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mascot idle animation (components/mascot/Mascot.tsx) */
+.mascot-animated .mascot-body {
+  animation: bob 4s ease-in-out infinite;
+}
+.mascot-animated .mascot-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 5s steps(1) infinite;
+}
+.mascot-animated .mascot-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pop 2.4s ease-in-out infinite;
+}
+@keyframes pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes blink {
+  0%, 96%, 100% { transform: scaleY(1); }
+  97%, 99% { transform: scaleY(0.1); }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
