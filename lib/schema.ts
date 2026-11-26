@@ -4,7 +4,7 @@
  * set in data/site-config.ts. No ratings, reviews, prices or founding dates are ever added.
  */
 import { siteConfig } from "@/data/site-config";
-import { serviceDetails } from "@/data/services";
+import { serviceDetails, servicePath, type ServiceDetail } from "@/data/services";
 import { absoluteUrl, defaultOgImage } from "@/lib/seo";
 
 const orgId = absoluteUrl("/#organization");
@@ -48,21 +48,26 @@ export function siteSchema() {
   return { "@context": "https://schema.org", "@graph": [business, website] };
 }
 
-/** The services described on /services/, each linked to its section. */
-export function servicesSchema() {
+function serviceEntity(service: ServiceDetail) {
+  const url = absoluteUrl(servicePath(service.id));
   return {
-    "@context": "https://schema.org",
-    "@graph": serviceDetails.map((s) => ({
-      "@type": "Service",
-      "@id": absoluteUrl(`/services/#${s.id}`),
-      url: absoluteUrl(`/services/#${s.id}`),
-      name: s.title,
-      serviceType: s.title,
-      description: s.intro,
-      provider: { "@id": orgId },
-      areaServed: kolkata,
-    })),
+    "@type": "Service",
+    "@id": `${url}#service`,
+    url,
+    name: service.title,
+    serviceType: service.title,
+    description: service.intro,
+    provider: { "@id": orgId },
+    areaServed: kolkata,
   };
+}
+
+export function serviceSchema(service: ServiceDetail) {
+  return { "@context": "https://schema.org", ...serviceEntity(service) };
+}
+
+export function servicesSchema() {
+  return { "@context": "https://schema.org", "@graph": serviceDetails.map(serviceEntity) };
 }
 
 export function breadcrumbSchema(items: { label: string; href: string }[]) {

@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { siteConfig, isDev } from "@/data/site-config";
 import { footerQuickLinks } from "@/data/navigation";
-import { featuredServices } from "@/data/services";
+import { featuredServices, servicePath } from "@/data/services";
 import { BrandMark } from "./BrandMark";
 import { SocialIcon, type SocialNetwork } from "./SocialIcon";
 import { PlaceholderTag } from "@/components/ui/Placeholder";
@@ -76,7 +76,7 @@ export function Footer() {
           <ul className="space-y-2.5">
             {featuredServices.map((s) => (
               <li key={s.id}>
-                <Link href={`/services/#${s.id}`} className={linkCls}>
+                <Link href={servicePath(s.id)} className={linkCls}>
                   {s.title}
                 </Link>
               </li>

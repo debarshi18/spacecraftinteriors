@@ -1,4 +1,4 @@
-import { featuredServices } from "./services";
+import { featuredServices, servicePath } from "./services";
 import { siteConfig } from "./site-config";
 
 export type NavItem = {
@@ -15,7 +15,7 @@ export const mainNav: NavItem[] = [
     href: "/services/",
     children: featuredServices.map((s) => ({
       label: s.title,
-      href: `/services/#${s.id}`,
+      href: servicePath(s.id),
       description: s.blurb,
     })),
   },

@@ -1,3 +1,4 @@
+import { servicePath } from "@/data/services";
 import { ArrowDown, Building, BuildingComplex, Coffee, Store } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
@@ -6,10 +7,10 @@ import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import { consultationCta } from "@/data/navigation";
 
 const heroServices = [
-  { label: "Office Interiors", href: "/services/#office-interiors", Icon: Building },
-  { label: "Retail Showrooms", href: "/services/#retail-shop-interiors", Icon: Store },
-  { label: "Cafés & Restaurants", href: "/services/#cafe-restaurant-interiors", Icon: Coffee },
-  { label: "Commercial Spaces", href: "/services/#commercial-renovation", Icon: BuildingComplex },
+  { label: "Office Interiors", href: servicePath("office-interiors"), Icon: Building },
+  { label: "Retail Showrooms", href: servicePath("retail-shop-interiors"), Icon: Store },
+  { label: "Cafés & Restaurants", href: servicePath("cafe-restaurant-interiors"), Icon: Coffee },
+  { label: "Commercial Spaces", href: servicePath("commercial-renovation"), Icon: BuildingComplex },
 ];
 
 const heroPhoto = {

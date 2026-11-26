@@ -1,7 +1,5 @@
 /**
  * Service content. Layout components read from here; edit copy without touching JSX.
- * Each detail `id` is the anchor on /services/ (e.g. /services/#office-interiors), so a section
- * can later graduate to its own landing page without changing links elsewhere.
  */
 
 import type { PhotoName } from "./images.generated";
@@ -199,8 +197,10 @@ export const serviceDetails: ServiceDetail[] = [
   },
 ];
 
+export const servicePath = (id: string) => `/services/${id}/`;
+
 export type ServiceSummary = {
-  /** Anchor of the matching section on /services/ */
+  /** ID of the matching service */
   id: string;
   title: string;
   /** Short line used on cards */

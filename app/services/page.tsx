@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import { CheckCircle2, ClipboardList } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import { Reveal } from "@/components/ui/Reveal";
-import { ProjectCard } from "@/components/projects/ProjectCard";
 import { ContactCTA } from "@/components/home/ContactCTA";
-import { serviceDetails } from "@/data/services";
-import { projects } from "@/data/projects";
+import { serviceDetails, servicePath } from "@/data/services";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { servicesSchema } from "@/lib/schema";
 
@@ -55,7 +52,6 @@ export default function ServicesPage() {
       </PageHero>
 
       {serviceDetails.map((s, i) => {
-        const related = projects.filter((p) => p.category === s.category).slice(0, 2);
         const flip = i % 2 === 1;
         return (
           <section
@@ -88,53 +84,14 @@ export default function ServicesPage() {
                     {s.title}
                   </h2>
                   <p className="mt-4 text-lg font-medium text-ink">{s.intro}</p>
-                  <p className={`mt-3 leading-relaxed ${flip ? "text-ink-muted-strong" : "text-ink-muted"}`}>{s.body}</p>
-
-                  <div className="mt-8 grid gap-8 sm:grid-cols-2">
-                    <div>
-                      <h3 className="font-display text-lg font-bold text-ink">Key benefits</h3>
-                      <ul className="mt-3 space-y-2.5">
-                        {s.benefits.map((b) => (
-                          <li key={b} className="flex gap-2.5 text-[0.95rem] leading-snug">
-                            <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-teal" aria-hidden="true" />
-                            {b}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-lg font-bold text-ink">Typical requirements</h3>
-                      <ul className="mt-3 space-y-2.5">
-                        {s.requirements.map((r) => (
-                          <li key={r} className="flex gap-2.5 text-[0.95rem] leading-snug">
-                            <ClipboardList className="mt-0.5 size-5 shrink-0 text-orange-deep" aria-hidden="true" />
-                            {r}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
 
                   <div className="mt-8">
-                    <Button href={`/contact/?type=${s.category}`} arrow>
-                      Discuss your {s.short.toLowerCase()} project
+                    <Button href={servicePath(s.id)} arrow>
+                      Explore {s.title.toLowerCase()}
                     </Button>
                   </div>
                 </div>
               </div>
-
-              {related.length > 0 && (
-                <div className="mt-12">
-                  <h3 className="font-display text-lg font-bold text-ink">Related spaces</h3>
-                  <ul className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    {related.map((p) => (
-                      <li key={p.slug}>
-                        <ProjectCard project={p} sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw" />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </Container>
           </section>
         );

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { featuredServices } from "@/data/services";
+import { featuredServices, servicePath } from "@/data/services";
 import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import { Reveal } from "@/components/ui/Reveal";
 import { Container } from "@/components/layout/Container";
@@ -18,7 +18,7 @@ export function ServicesGrid() {
           {featuredServices.map((s, i) => (
             <Reveal as="li" key={s.id} delay={i * 80}>
               <Link
-                href={`/services/#${s.id}`}
+                href={servicePath(s.id)}
                 className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-white shadow-[var(--shadow-card)] transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)]"
               >
                 <div className="overflow-hidden">

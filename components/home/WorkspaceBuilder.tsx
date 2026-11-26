@@ -1,5 +1,6 @@
 "use client";
 
+import { servicePath } from "@/data/services";
 import { useRef, useState, type ReactNode, type RefObject } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Building, BuildingComplex, Check, Coffee, Info, RotateCcw, Store, type LucideIcon } from "lucide-react";
@@ -16,10 +17,10 @@ import { areaRanges } from "@/lib/validation";
  */
 
 const spaces: { id: ProjectCategory; label: string; hint: string; Icon: LucideIcon; service: string }[] = [
-  { id: "office", label: "Office", hint: "Workstations, cabins, meeting rooms", Icon: Building, service: "/services/#office-interiors" },
-  { id: "retail", label: "Retail or showroom", hint: "Shops, display spaces, brand stores", Icon: Store, service: "/services/#retail-shop-interiors" },
-  { id: "restaurant", label: "Café or restaurant", hint: "Dining, counters, lounges", Icon: Coffee, service: "/services/#cafe-restaurant-interiors" },
-  { id: "commercial", label: "Other commercial", hint: "Receptions, lobbies, renovations", Icon: BuildingComplex, service: "/services/#commercial-renovation" },
+  { id: "office", label: "Office", hint: "Workstations, cabins, meeting rooms", Icon: Building, service: servicePath("office-interiors") },
+  { id: "retail", label: "Retail or showroom", hint: "Shops, display spaces, brand stores", Icon: Store, service: servicePath("retail-shop-interiors") },
+  { id: "restaurant", label: "Café or restaurant", hint: "Dining, counters, lounges", Icon: Coffee, service: servicePath("cafe-restaurant-interiors") },
+  { id: "commercial", label: "Other commercial", hint: "Receptions, lobbies, renovations", Icon: BuildingComplex, service: servicePath("commercial-renovation") },
 ];
 
 const styles: { id: DesignStyle; label: string; hint: string; swatch: [string, string, string] }[] = [
